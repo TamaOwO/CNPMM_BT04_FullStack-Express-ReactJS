@@ -3,8 +3,11 @@ const jwt = require('jsonwebtoken');
 const { emit } = require("../models/user");
 
 const auth = (req, res, next) => {
-    const white_lists = ["/","/register","/login", "/products"];
-    if (white_lists.find(item => req.originalUrl.startsWith('/api/v1' + item))) {
+    const white_lists = ["/", "/register", "/login"];
+    const while_lists_prefix = ["/products"];
+    if (white_lists.includes(req.originalUrl.replace('/api/v1', ''))) {
+        next();
+    } else if (while_lists_prefix.some(prefix => req.originalUrl.replace('/api/v1', '').startsWith(prefix))) {
         next();
     } else {
         if (req?.headers?.authorization?.split(' ')[1]) {

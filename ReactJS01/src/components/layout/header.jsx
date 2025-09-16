@@ -16,6 +16,13 @@ const Header = () => {
             key: 'home',
             icon : <HomeOutlined />,
         },
+
+        {
+            label: <Link to={"/products"}> Products</Link>,
+            key: 'products',
+            icon : <SettingOutlined />,
+        },
+
         ...(auth.isAuthenticated ? [{
             label: <Link to={"/user"}> Users</Link>,
             key: 'user',

@@ -47,7 +47,7 @@ async function searchProducts(req, res) {
         if (keyword) {
             mustQuery.push({
                 match: {
-                    name: {
+                    title: {
                         query: keyword,
                         fuzziness: "AUTO"
                     }
@@ -58,7 +58,7 @@ async function searchProducts(req, res) {
         // Lọc theo danh mục
         if (category && category !== 'all') {
             mustQuery.push({
-                term: { category }
+                match: { category }
             });
         }
 

@@ -1,5 +1,5 @@
 const { get } = require("mongoose");
-const {createUserService, loginService, getUserService} = require("../services/userService");
+const {createUserService, loginService, getUserService, getMeService} = require("../services/userService");
 
 const creatUser = async (req, res) => {
     const {name, email, password} = req.body;
@@ -23,9 +23,14 @@ const getAccount = async (req, res) => {
     return res.status(200).json(req.user);
 }
 
+const getMe = async (req, res) => {
+    return getMeService(req, res);
+}
+
 module.exports = {
     creatUser,
     handleLogin,
     getUser,
-    getAccount
+    getAccount,
+    getMe
 }

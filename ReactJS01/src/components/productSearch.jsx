@@ -1,24 +1,53 @@
-import React, { useState } from "react";
+import { Form, Input, Button, Select } from "antd";
+
+const { Option } = Select;
 
 function ProductSearch({ onSearch }) {
-  const [keyword, setKeyword] = useState("");
-  const [category, setCategory] = useState("");
-  const [minPrice, setMinPrice] = useState("");
-  const [maxPrice, setMaxPrice] = useState("");
+  const [form] = Form.useForm();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    onSearch({ keyword, category, minPrice, maxPrice});
+  const handleFinish = (values) => {
+    onSearch(values);
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input placeholder="Tìm kiếm..." value={keyword} onChange={(e) => setKeyword(e.target.value)} />
-      <input placeholder="Danh mục" value={category} onChange={(e) => setCategory(e.target.value)} />
-      <input placeholder="Giá từ" value={minPrice} onChange={(e) => setMinPrice(e.target.value)} />
-      <input placeholder="Giá đến" value={maxPrice} onChange={(e) => setMaxPrice(e.target.value)} />
-      <button type="submit">Tìm kiếm</button>
-    </form>
+    <Form
+      form={form}
+      layout="inline"
+      onFinish={handleFinish}
+      style={{ marginBottom: 16 }}
+    >
+      {/* Từ khóa */}
+      <Form.Item name="keyword">
+        <Input placeholder="Tìm kiếm sản phẩm..." allowClear />
+      </Form.Item>
+
+      {/* Danh mục */}
+      <Form.Item name="category">
+        <Select placeholder="Chọn danh mục" allowClear style={{ width: 150 }}>
+          <Option value="Phụ kiện">Phụ kiện</Option>
+          <Option value="Thức ăn">Thức ăn</Option>
+          <Option value="Đồ chơi">Đồ chơi</Option>
+          <Option value="Chăm sóc">Chăm sóc</Option>
+        </Select>
+      </Form.Item>
+
+      {/* Giá từ */}
+      <Form.Item name="minPrice">
+        <Input type="number" placeholder="Giá từ" />
+      </Form.Item>
+
+      {/* Giá đến */}
+      <Form.Item name="maxPrice">
+        <Input type="number" placeholder="Giá đến" />
+      </Form.Item>
+
+      {/* Nút tìm kiếm */}
+      <Form.Item>
+        <Button type="primary" htmlType="submit">
+          Tìm kiếm
+        </Button>
+      </Form.Item>
+    </Form>
   );
 }
 
