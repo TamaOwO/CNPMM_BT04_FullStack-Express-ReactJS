@@ -9,14 +9,14 @@ export const AuthContext = createContext({
     appLoading: true,
 });
 
-export const AuthWrappe = (props) => {
+export const AuthProvider = (props) => {
     const [auth, setAuth] = useState({
         isAuthenticated: false,
         user: { email: "", name: "" }
     });
     const [appLoading, setAppLoading] = useState(true);
     return (
-        <AuthContext.Provider value={{ ...auth, setAuth, appLoading, setAppLoading }}>
+        <AuthContext.Provider value={{ auth, setAuth, appLoading, setAppLoading }}>
             {props.children}
         </AuthContext.Provider>
     );

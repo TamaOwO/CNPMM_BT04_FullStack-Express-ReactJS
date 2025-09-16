@@ -18,7 +18,7 @@ webAPI.get('/', getHomePage);
 app.use('/', webAPI);
 
 //khai bao route cho API
-app.use('/api/v1/', apiRouters);
+app.use('/api/v1', apiRouters);
 (async()=>{
     try{
         await connection();

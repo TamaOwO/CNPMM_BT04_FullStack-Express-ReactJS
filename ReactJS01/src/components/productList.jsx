@@ -1,5 +1,5 @@
 import React from 'react';
-import ProductCard from './ProductCard';
+import ProductCard from '../components/productCart';
 
 export default function ProductList({ products }) {
   if (!products || products.length === 0) {

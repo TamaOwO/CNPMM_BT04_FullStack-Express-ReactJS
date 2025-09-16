@@ -23,3 +23,5 @@ const connection = async()=>{
     const state = Number(mongoose.connection.readyState);
     console.log(dbState.find(f => f.value === state).label, "to databse"); //connect to db
 }
+
+module.exports = connection;

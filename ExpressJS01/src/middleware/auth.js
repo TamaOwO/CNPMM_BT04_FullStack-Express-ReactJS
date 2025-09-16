@@ -3,8 +3,8 @@ const jwt = require('jsonwebtoken');
 const { emit } = require("../models/user");
 
 const auth = (req, res, next) => {
-    const white_lists = ["/","/register","/login"];
-    if (white_lists.find(item => '/v1/api' + item === req.originalUrl)) {
+    const white_lists = ["/","/register","/login", "/products"];
+    if (white_lists.find(item => req.originalUrl.startsWith('/api/v1' + item))) {
         next();
     } else {
         if (req?.headers?.authorization?.split(' ')[1]) {
@@ -29,21 +29,23 @@ const auth = (req, res, next) => {
             });
         }
     }
-    if (!token) {
-        return res.status(401).json({
-            EC: 1,
-            EM: "No token provided"
-        });
-    }
+    // if (!token) {
+    //     return res.status(401).json({
+    //         EC: 1,
+    //         EM: "No token provided"
+    //     });
+    // }
 
-    jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
-        if (err) {
-            return res.status(403).json({
-                EC: 1,
-                EM: "Invalid token"
-            });
-        }
-        req.user = user;
-        next();
-    });
+    // jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+    //     if (err) {
+    //         return res.status(403).json({
+    //             EC: 1,
+    //             EM: "Invalid token"
+    //         });
+    //     }
+    //     req.user = user;
+    //     next();
+    // });
 }
+
+module.exports = auth;

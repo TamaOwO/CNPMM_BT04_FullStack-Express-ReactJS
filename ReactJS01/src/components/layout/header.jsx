@@ -3,6 +3,7 @@ import { UsergroupAddOutlined, HomeOutlined, SettingOutlined } from '@ant-design
 import { Menu } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/auth.context';
+import HomePage from '../../pages/home';
 
 const Header = () => {
 
@@ -11,7 +12,7 @@ const Header = () => {
     console.log(">>> check auth: ", auth);
     const items = [
         {
-            label: <Link to={"/"}><Home Page /> Home</Link>,
+            label: <Link to={"/"}> Home </Link>,
             key: 'home',
             icon : <HomeOutlined />,
         },
@@ -22,7 +23,7 @@ const Header = () => {
         }] : []),
         
         {
-            label: 'Welcome ${auth?.user?.email ?? ""}',
+            label: `Welcome ${auth?.user?.email ?? ""}`,
             key: 'SubMenu',
             icon : <SettingOutlined />,
             children: [

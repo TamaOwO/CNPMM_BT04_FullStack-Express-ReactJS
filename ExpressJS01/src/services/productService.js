@@ -1,4 +1,5 @@
 const Product = require('../models/product');
+const esClient = require( '../config/elasticsearch');
 
 async function getProducts({ category, page = 1, limit = 16 }) {
   const skip = (Math.max(1, page) - 1) * limit;
@@ -20,4 +21,17 @@ async function getProducts({ category, page = 1, limit = 16 }) {
   };
 }
 
-module.exports = { getProductsPaginated };
+async function indexProduct(product) {
+  await esClient.index({
+    index: "products",
+    id: product._id.toString(),
+    body: {
+      title: product.title,
+      category: product.category,
+      price: product.price,
+      image: product.image
+    },
+  });
+}
+
+module.exports = { getProducts, indexProduct };

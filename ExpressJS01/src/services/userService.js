@@ -4,10 +4,10 @@ const brcypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const saltRounds = 10;
 
-const createUserService = async (data) => {
+const createUserService = async (name, email, password) => {
     try {
         //check user exist
-        const user = await User.findOne({ email});
+        const user = await User.findOne({email});
         if (user) {
             console.log("User already exists");
             return null;
